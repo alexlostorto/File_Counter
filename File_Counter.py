@@ -78,6 +78,7 @@ def count_characters(file_path):
 
 
 def main():
+    assert os.path.isdir(ROOT)
     for root, dirs, files in os.walk(ROOT):
         for file in files:
             # append the file name to the list if it ends with '.py'
