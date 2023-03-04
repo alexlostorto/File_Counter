@@ -2,7 +2,7 @@
 
 The program goes through each file in a chosen directory and counts all the lines, words and characters.
 
-``` python
+```python
 # Example in console
 Files searched: 70
 Total lines: 15,076
@@ -10,11 +10,11 @@ Total words: 65,678
 Total characters: 2,067,234
 ```
 
-## How it Works 
+## How it Works
 
 Below is a list of all the variables you can choose to alter:
 
-``` python
+```python
 ROOT = r"C:\Users\[Users]\[pythonFiles]"  # Absolute path to the directory you want to search
 FILE_LIST = []  # List of all the files searched
 SUFFIX = '.py'  # Only search files with the chosen suffix
@@ -25,15 +25,15 @@ COUNT_CHARACTERS = False  # Choose to count characters
 EXCLUDE_SPACES = True  # Choose to count or exclude spaces
 ```
 
-1) Check if the ROOT path is a directory
+1. Check if the ROOT path is a directory
 
-``` python
+```python
 assert os.path.isdir(ROOT)
 ```
 
-2) Using os.walk() we can traverse recursively through all the subdirectories of the ROOT directrory. By using a for loop to loop over all the files in each directory, we can calculate the amount of lines, words and characters in each file.
+2. Using os.walk() we can traverse recursively through all the subdirectories of the ROOT directory. By using a for loop to loop over all the files in each directory, we can calculate the amount of lines, words and characters in each file.
 
-``` python
+```python
 for root, dirs, files in os.walk(ROOT):
     for file in files:
         # append the file name to the list if it ends with '.py'
@@ -54,7 +54,7 @@ for root, dirs, files in os.walk(ROOT):
 
 Loops over each line in a file and if it isn't a blank line ('\n'), it will add 1 to the line_count.
 
-``` python
+```python
 def count_lines(file_path):
     try:
         with open(file_path, 'r') as f:
@@ -73,7 +73,7 @@ def count_lines(file_path):
 
 Reads all the data from the file and splits the text into words using .split(). The word count is calculated by finding the length of the words list, using the len() function.
 
-``` python
+```python
 def count_words(file_path):
     try:
         with open(file_path, 'r') as f:
@@ -92,7 +92,7 @@ def count_words(file_path):
 
 Reads the file and calculates the character count by finding the length of the data, using the len() function.
 
-``` python
+```python
     try:
         with open(file_path, 'r') as f:
             if EXCLUDE_SPACES:
@@ -108,7 +108,7 @@ Reads the file and calculates the character count by finding the length of the d
     return char_count
 ```
 
-## Credits 
+## Credits
 
 Everything is coded by Alex lo Storto
 
