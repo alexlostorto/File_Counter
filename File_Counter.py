@@ -4,7 +4,7 @@ import os
 ROOT = r"C:\Users\[Users]\[pythonFiles]"
 FILE_LIST = []
 SUFFIX = '.py'
-USE_SUFFIX = True
+USE_SUFFIX = False
 COUNT_LINES = True
 COUNT_WORDS = False
 COUNT_CHARACTERS = False
@@ -77,9 +77,50 @@ def count_characters(file_path):
     return char_count
 
 
+def getInput(array, question):
+    userInput = input(question)
+    print()
+
+    while True:
+        # Check input is acceptable
+        if userInput == '':
+            return False
+        elif not userInput.isdigit() or int(userInput) < 1 or int(userInput) > len(array):
+            print(f"Input has to be a number 1-{len(array)}")
+            userInput = input(question)
+            continue
+        else:
+            # Chooses file
+            userInput = int(userInput)
+            return userInput
+
+
+def traverseFiles(root, question):
+    while True:
+        dirs = [d for d in os.listdir(root) if os.path.isdir(os.path.join(root, d))]
+
+        if len(dirs) == 0:
+            return root
+
+        # Choose directory
+        for i in range(len(dirs)):
+            print(f"{i+1}) {dirs[i]}")
+
+        dir = getInput(dirs, question)
+
+        if not dir:
+            return root
+
+        print(f"You chose '{dirs[dir-1]}'\n")
+        root = os.path.join(root, dirs[dir-1])
+
+
 def main():
     assert os.path.isdir(ROOT)
-    for root, dirs, files in os.walk(ROOT):
+
+    source = traverseFiles(ROOT, "Choose source directory (press ENTER to choose CWD): ")
+
+    for root, _, files in os.walk(source):
         for file in files:
             # append the file name to the list if it ends with '.py'
             path = os.path.join(root, file)
@@ -99,10 +140,6 @@ def main():
         print(f"Total words: {TOTAL_WORDS:,}")
     if COUNT_CHARACTERS:
         print(f"Total characters: {TOTAL_CHARACTERS:,}")
-
-    # print all the file names
-    # for name in FILE_LIST:
-    #     print(name)
 
 
 if __name__ == '__main__':
